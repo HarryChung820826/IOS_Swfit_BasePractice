@@ -23,9 +23,37 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //UIAlertController 必須等到 View Controller 載入後 才能顯示 ; 因此在viewDidAppear 中處理
-        showDialog()
+//        showDialog()
         
     }
+    
+    
+    @IBAction func BackFrom(for segue:UIStoryboardSegue){
+        
+        var vc : MyBaseViewController;
+        if segue.identifier == "picker_view_id"{
+            vc = segue.source as! PickerViewController
+            print(vc.tag!)
+        }
+        
+        if segue.identifier == "calculate_view_id"{
+            vc = segue.source as! CalculateViewController
+            print(vc.tag!)
+        }
+    }
+    
+    @IBAction func GoToCalculateVC(_ sender: Any) {
+        if let calculateVC = storyboard?.instantiateViewController(withIdentifier: "CalculateVC"){
+            show(calculateVC, sender: self)
+        }
+    }
+    
+    @IBAction func GoToMyTableView(_ sender:Any){
+        if let myTableVC = storyboard?.instantiateViewController(withIdentifier:"MyTableViewVC"){
+            show(myTableVC,sender: self)
+        }
+    }
+    
     var lock:Bool = true
     @IBAction func BtnClick(_ sender: Any) {
         if(lock){
